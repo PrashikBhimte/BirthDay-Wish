@@ -13,6 +13,7 @@ export default function MessageBox(props) {
         e.preventDefault();
         if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'svg' && e.target.tagName !== 'path') {
             document.getElementById('continue').style.display = "none";
+            document.getElementById('backbutton').style.display = "none";
             // document.getElementById('messageBox').remove();
             document.removeEventListener('click', handleClick);
             props.next();
@@ -29,9 +30,10 @@ export default function MessageBox(props) {
                     index++;
                 }
                 else {
-                    document.getElementById('continue').style.display = "block";
                     clearInterval(interval);
                     document.addEventListener('click', handleClick);
+                    document.getElementById('continue').style.display = "block";
+                    document.getElementById('backbutton').style.display = "block";
                 }
             }, 50);
 

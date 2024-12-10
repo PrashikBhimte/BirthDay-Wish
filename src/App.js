@@ -9,6 +9,7 @@ import song from "./Music/song.mpeg";
 import MessageBox2 from './Components/MessageBox2';
 import InitialBox from './Components/InitialBox';
 import { AiFillSound, AiOutlineSound } from "react-icons/ai";
+import { IoMdArrowBack } from "react-icons/io";
 
 var index = 0;
 
@@ -37,16 +38,18 @@ function App() {
   const handlePrev = (e) => {
     e.preventDefault();
     if (index > 0) {
+      document.getElementById('continue').style.display = "none";
+      document.getElementById('backbutton').style.display = "none";
       index--;
       if (index === 0) {
         myRef.current.load();
         setIs(false);
       }
-      if (index === 1) {
+      else if (index === 1) {
         myRef.current.load();
         myRef.current.play();
         setIsAudioOn(true);
-        document.getElementById("confetti").style.display = "block";
+        setIs(true);
       }
       setBox(boxes[index]);
     }
@@ -80,7 +83,7 @@ function App() {
       <audio ref={myRef} src={song} />
       {is && <button id='audioButton' onClick={HandleAudio}>{isAudioOn ? <AiFillSound /> : <AiOutlineSound />}</button>}
       {is && <Confetti id='confetti' height={height} width={width} />}
-      {is && <button id='backbutton' onClick={handlePrev}>Back</button>}
+      <button id='backbutton' onClick={handlePrev}><IoMdArrowBack /></button>
       <p id='continue'>Click anywhere to continue!</p>
       {box}
     </div>

@@ -19,6 +19,7 @@ export default function HeartBox() {
                     index++;
                 }
                 else {
+                    document.getElementById('backbutton').style.display = "block";
                     clearInterval(interval);
                 }
             }, 100);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./AskBox.css";
 
 export default function AskBox(props) {
@@ -15,6 +15,10 @@ export default function AskBox(props) {
     const handleYes = () => {
         props.next();
     }
+
+    useEffect(() => {
+        document.getElementById('backbutton').style.display = "block";
+    }, []);
 
   return (
     <div id='askBox' >
