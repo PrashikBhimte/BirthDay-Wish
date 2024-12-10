@@ -7,8 +7,10 @@ export default function InitialBox(props) {
 
         const handleClick = (e) => {
             e.preventDefault();
-            document.removeEventListener('click', handleClick);
-            props.next();
+            if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'svg' && e.target.tagName !== 'path') {
+                document.removeEventListener('click', handleClick);
+                props.next();
+            }
         }
 
         document.addEventListener("click", handleClick);
@@ -20,7 +22,7 @@ export default function InitialBox(props) {
 
   return (
     <div id='initialbox'>
-        <p>Click Any Where to Continue!</p>
+        <p>Click anywhere to continue!</p>
     </div>
   )
 }

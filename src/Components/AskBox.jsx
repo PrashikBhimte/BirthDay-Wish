@@ -18,10 +18,10 @@ export default function AskBox(props) {
 
   return (
     <div id='askBox' >
-        <p>Would you be mine Forever?</p>
+        <p>Would you be mine Forever? 💍</p>
         <div id="buttons">
-            <button onClick={handleYes}>Yesss!</button>
-            <button onClick={hanldeNo}>sochite ho!</button>
+            <button onClick={handleYes}>Yes!</button>
+            <button onClick={hanldeNo}>No!</button>
         </div>
     </div>
   )
