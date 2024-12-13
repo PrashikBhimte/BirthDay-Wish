@@ -8,17 +8,11 @@ export default function AskBox(props) {
     const hanldeNo = () => {
         var randomIndex = Math.floor(Math.random() * values.length);
         document.getElementById('askBox').style.top = values[randomIndex];
-        // randomIndex = Math.floor(Math.random() * values.length);
-        // document.getElementById('askBox').style.left = values[randomIndex];
     }
 
     const handleYes = () => {
         props.next();
     }
-
-    useEffect(() => {
-        document.getElementById('backbutton').style.display = "block";
-    }, []);
 
   return (
     <div id='askBox' >

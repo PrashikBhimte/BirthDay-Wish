@@ -17,54 +17,102 @@ function App() {
 
   const myRef = useRef();
 
-  const [is, setIs] = useState(false);
-  // const [isfirst, setIsfirst] = useState(true);
+  const [ isConfetti, setIsConfetti ] = useState(false);
+  const [ isAudioSwitch, setIsAudioSwitch ] = useState(false);
+  const [ isContinue, setIsContinue ] = useState(false);
+  const [ isBack, setIsBack ] = useState(false);
 
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
 
   const [isAudioOn, setIsAudioOn] = useState(false);
 
+  const ready = () => {
+    setIsBack(true);
+    setIsContinue(true);
+  }
+
   const handleNext = () => {
     if (index === 0) {
-      setIs(true);
+      setIsConfetti(true);
+      setIsAudioSwitch(true);
       setIsAudioOn(true);
+      setIsBack(true);
+      setIsContinue(true);
       myRef.current.play();
+      index++;
+      setBox(boxes[index]);
     }
-    index++;
-    setBox(boxes[index]);
+    else if ( index === 1 ) {
+      setIsConfetti(false);
+      document.getElementById('birthdayWishBox').style.marginTop = "120vh";
+      setTimeout(() => {
+        index++;
+        setBox(boxes[index]);
+      }, 2000);
+    }
+    else if (index === 2 || index === 4) {
+      index++;
+      setBox(boxes[index]);
+    }
+    else if (index === 3) {
+      setIsContinue(false);
+      document.removeEventListener('click', handleClick);
+      index++;
+      setBox(boxes[index]);
+    }
   }
 
   const handlePrev = (e) => {
     e.preventDefault();
     if (index > 0) {
-      document.getElementById('continue').style.display = "none";
-      document.getElementById('backbutton').style.display = "none";
       index--;
       if (index === 0) {
         myRef.current.load();
-        setIs(false);
+        setIsConfetti(false);
+        setIsAudioSwitch(false);
+        setIsAudioOn(false);
+        setIsBack(false);
+        setIsContinue(false);
       }
       else if (index === 1) {
         myRef.current.load();
         myRef.current.play();
         setIsAudioOn(true);
-        setIs(true);
+        setIsAudioSwitch(true);
+        setIsConfetti(true);
+      }
+      else if (index === 3) {
+        setIsContinue(true);
+        document.addEventListener('click', handleClick);
       }
       setBox(boxes[index]);
     }
   }
 
-  // const audio = new Audio(song);
-  const boxes = [<InitialBox next={handleNext} />, <BirthdayWishBox next={handleNext} />, <MessageBox next={handleNext} />, <MessageBox2 next={handleNext} />, <AskBox next={handleNext} />, <HeartBox />];
+  const boxes = [<InitialBox />, <BirthdayWishBox />, <MessageBox ready={ready} />, <MessageBox2 ready={ready} />, <AskBox next={handleNext} />, <HeartBox />];
   const [box, setBox] = useState(boxes[index]);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'svg' && e.target.tagName !== 'path') {
+      handleNext();
+    }
+  }
 
   useEffect(() => {
 
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
+    }
+  }, []);
+
+  useEffect(() => {
     setWidth(window.innerWidth);
     setHeight(window.innerHeight);
-
-  }, [window]);
+  }, []);
 
   const HandleAudio = () => {
     if (isAudioOn) {
@@ -72,7 +120,6 @@ function App() {
       setIsAudioOn(false);
     }
     else {
-      // audio.play();
       myRef.current.play();
       setIsAudioOn(true);
     }
@@ -81,10 +128,10 @@ function App() {
   return (
     <div className="App">
       <audio ref={myRef} src={song} />
-      {is && <button id='audioButton' onClick={HandleAudio}>{isAudioOn ? <AiFillSound /> : <AiOutlineSound />}</button>}
-      {is && <Confetti id='confetti' height={height} width={width} />}
-      <button id='backbutton' onClick={handlePrev}><IoMdArrowBack /></button>
-      <p id='continue'>Click anywhere to continue!</p>
+      {isAudioSwitch && <button id='audioButton' onClick={HandleAudio}>{isAudioOn ? <AiFillSound /> : <AiOutlineSound />}</button>}
+      {isConfetti && <Confetti id='confetti' height={height} width={width} />}
+      {isBack && <button id='backbutton' onClick={handlePrev}><IoMdArrowBack /></button>}
+      {isContinue && <p id='continue'>Click anywhere to continue!</p>}
       {box}
     </div>
   );

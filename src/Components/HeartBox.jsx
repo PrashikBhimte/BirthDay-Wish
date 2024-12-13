@@ -5,7 +5,6 @@ export default function HeartBox() {
 
     const content = "I  Love    you!    💝";
     const [text, setText] = useState("");
-    // const [index, setIndex] = useState(0);
     var index = 0;
     const length = content.length;
 
@@ -15,11 +14,9 @@ export default function HeartBox() {
             const interval = setInterval(() => {
                 if (index < length - 1) {
                     setText((prevText) => { return prevText + content[index] });
-                    // setIndex(index + 1);
                     index++;
                 }
                 else {
-                    document.getElementById('backbutton').style.display = "block";
                     clearInterval(interval);
                 }
             }, 100);
