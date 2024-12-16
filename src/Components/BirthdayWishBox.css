@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+ZA+Guides&display=swap');
 
 #birthdayWishBox {
-    max-width: 800px;
+    max-width: 500px;
     height: 500px;
     width: 100%;
     padding: 20px;
@@ -12,7 +12,7 @@
     top: 0;
     bottom: 0;
     margin: auto;
-    margin-top: 200px;
+    margin-top: 10vh;
     animation-name: comedown;
     animation-duration: 2s;
     animation-timing-function: ease;
@@ -22,11 +22,11 @@
 
 #birthdayWishBoxImg {
     width: 100%;
-    height: 90%;
-    background-image: url('../Images/head.png');
+    height: auto;
+    /* background-image: url('../Images/head.png');
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: center;
+    background-position: center; */
   }
 
 @keyframes comedown {
