@@ -52,11 +52,11 @@ function App() {
         setBox(boxes[index]);
       }, 2000);
     }
-    else if (index === 2 || index === 4) {
+    else if (index === 2 || index === 3 || index === 5) {
       index++;
       setBox(boxes[index]);
     }
-    else if (index === 3) {
+    else if (index === 4) {
       setIsContinue(false);
       document.removeEventListener('click', handleClick);
       index++;
