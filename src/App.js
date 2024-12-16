@@ -10,6 +10,7 @@ import MessageBox2 from './Components/MessageBox2';
 import InitialBox from './Components/InitialBox';
 import { AiFillSound, AiOutlineSound } from "react-icons/ai";
 import { IoMdArrowBack } from "react-icons/io";
+import Photos from './Components/Photos';
 
 var index = 0;
 
@@ -90,7 +91,7 @@ function App() {
     }
   }
 
-  const boxes = [<InitialBox />, <BirthdayWishBox />, <MessageBox ready={ready} />, <MessageBox2 ready={ready} />, <AskBox next={handleNext} />, <HeartBox />];
+  const boxes = [<InitialBox />, <BirthdayWishBox />, <Photos />, <MessageBox ready={ready} />, <MessageBox2 ready={ready} />, <AskBox next={handleNext} />, <HeartBox />];
   const [box, setBox] = useState(boxes[index]);
 
   const handleClick = (e) => {
